@@ -110,6 +110,13 @@ var
   rect:TRect;
   pt:TPoint;
   Left, Top:cardinal;
+  procedure Click;
+  begin
+    GetCursorPos(pt);
+    SetCursorPos(Left, Top);
+    mouse_event(MOUSEEVENTF_LEFTDOWN or MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+    SetCursorPos(pt.x, pt.y);
+  end;
 begin
   id := GetBar;
   if (id<>0) and not IsWindowVisible(id) then
@@ -124,13 +131,9 @@ begin
     Left := Left + 12;
     Top := Top + 5;
 
-    GetCursorPos(pt);
-    SetCursorPos(Left, Top);
-    mouse_event(MOUSEEVENTF_LEFTDOWN or MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-    sleep(GetDoubleClickTime + 20); 
-    SetCursorPos(Left, Top);
-    mouse_event(MOUSEEVENTF_LEFTDOWN or MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-    SetCursorPos(pt.x, pt.y);
+    Click;
+    sleep(GetDoubleClickTime + 20);
+    Click;
   end;
 end;
 
@@ -158,7 +161,7 @@ begin
     exit;
 
   ShellExecute(0, 'Open',
-    'D:\Program Files\VMware\VMware View\Client\bin\wswc.exe',                                                                  //windowLarge fullscreen
+    'D:\Program Files\VMware\VMware View\Client\bin\wswc.exe',
     '-shutdown',
     nil, SW_SHOW);
 end;
