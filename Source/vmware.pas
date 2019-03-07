@@ -25,7 +25,11 @@ implementation
 
 function TWMware.GetMain: HWND;
 begin
-  Result := FindWindow('#32770', 'Win8');
+  Result := FindWindow('#32770', 'Win10');
+  if (Result = 0) then
+    Result := FindWindow('#32770', 'Win8');
+  if (Result = 0) then
+    Result := FindWindow('#32770', 'Win7');
 end;
 
 function TWMware.GetBar: HWND;
@@ -127,7 +131,7 @@ begin
     Top := screen.WorkAreaTop;
     MoveWindow(id, Left, Top+34, rect.Right-rect.Left, rect.Bottom-rect.Top, true);
 
-    //Á½´Îµ¥»÷¹¤¾ßÀ¸Ãªµã°´Å¥
+    //ì¢ƒëŠ´ë°ìƒŒë¬ì•¼ìœ¼ì±—ë“ê°í
     Left := Left + 12;
     Top := Top + 5;
 
