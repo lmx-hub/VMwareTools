@@ -25,7 +25,11 @@ implementation
 
 function TWMware.GetMain: HWND;
 begin
-  Result := FindWindow('#32770', 'Win8');
+  Result := FindWindow('#32770', 'Win10');
+  if Result = 0 then
+    Result := FindWindow('#32770', 'Win8');
+  if Result = 0 then
+    Result := FindWindow('#32770', 'Win7');
 end;
 
 function TWMware.GetBar: HWND;
